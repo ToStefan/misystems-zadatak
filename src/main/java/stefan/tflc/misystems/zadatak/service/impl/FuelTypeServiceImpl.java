@@ -2,6 +2,8 @@ package stefan.tflc.misystems.zadatak.service.impl;
 
 import java.util.Set;
 
+import javax.transaction.Transactional;
+
 import org.springframework.stereotype.Service;
 
 import stefan.tflc.misystems.zadatak.repository.FuelTypeRepository;
@@ -11,6 +13,7 @@ import stefan.tflc.misystems.zadatak.web.mapper.FuelTypeMapper;
 
 import lombok.AllArgsConstructor;
 
+@Transactional
 @AllArgsConstructor
 @Service
 public class FuelTypeServiceImpl implements FuelTypeService {

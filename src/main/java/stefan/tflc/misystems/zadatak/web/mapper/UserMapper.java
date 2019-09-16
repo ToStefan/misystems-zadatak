@@ -20,7 +20,6 @@ public class UserMapper implements Mapper<User, UserDTO> {
         dto.setBornDate(entity.getBornDate());
         dto.setActive(entity.getActive());
         dto.setRoles(entity.getRoles());
-        dto.setRent(entity.getRent());
         return dto;
     }
 
@@ -61,7 +60,6 @@ public class UserMapper implements Mapper<User, UserDTO> {
         entity.setBornDate(dto.getBornDate());
         entity.setActive(dto.getActive());
         entity.setRoles(dto.getRoles());
-        entity.setRent(dto.getRent());
         return entity;
     }
 
@@ -75,7 +73,6 @@ public class UserMapper implements Mapper<User, UserDTO> {
         entity.setBornDate(dto.getBornDate());
         entity.setActive(dto.getActive());
         entity.setRoles(dto.getRoles());
-        entity.setRent(dto.getRent());
         return entity;
     }
 

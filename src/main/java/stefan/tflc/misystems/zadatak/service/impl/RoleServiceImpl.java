@@ -2,6 +2,8 @@ package stefan.tflc.misystems.zadatak.service.impl;
 
 import java.util.Set;
 
+import javax.transaction.Transactional;
+
 import org.springframework.stereotype.Service;
 
 import stefan.tflc.misystems.zadatak.repository.RoleRepository;
@@ -11,6 +13,7 @@ import stefan.tflc.misystems.zadatak.web.mapper.RoleMapper;
 
 import lombok.AllArgsConstructor;
 
+@Transactional
 @AllArgsConstructor
 @Service
 public class RoleServiceImpl implements RoleService {

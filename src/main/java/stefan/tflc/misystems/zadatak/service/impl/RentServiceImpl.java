@@ -2,6 +2,8 @@ package stefan.tflc.misystems.zadatak.service.impl;
 
 import java.util.Set;
 
+import javax.transaction.Transactional;
+
 import org.springframework.stereotype.Service;
 
 import stefan.tflc.misystems.zadatak.repository.RentRepository;
@@ -11,6 +13,7 @@ import stefan.tflc.misystems.zadatak.web.mapper.RentMapper;
 
 import lombok.AllArgsConstructor;
 
+@Transactional
 @AllArgsConstructor
 @Service
 public class RentServiceImpl implements RentService {

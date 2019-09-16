@@ -25,13 +25,12 @@ public class Vehicle {
     @JoinColumn(name = "fuel_type", nullable = false)
     private FuelType fuelType;
 
-    @OneToOne(targetEntity = Price.class, fetch = FetchType.EAGER)
-    @JoinColumn(name = "price", nullable = false)
-    private Price price;
-
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "car_body_type", nullable = false)
     private CarBodyType carBodyType;
+    
+    @Column(name = "price", nullable = false)
+    private Integer price;
 
     @Column(name = "weight", nullable = false)
     private Integer weight;

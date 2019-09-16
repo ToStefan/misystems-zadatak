@@ -2,15 +2,17 @@ package stefan.tflc.misystems.zadatak.service.impl;
 
 import java.util.Set;
 
+import javax.transaction.Transactional;
+
 import org.springframework.stereotype.Service;
 
+import lombok.AllArgsConstructor;
 import stefan.tflc.misystems.zadatak.repository.CarBodyTypeRepository;
 import stefan.tflc.misystems.zadatak.service.CarBodyTypeService;
 import stefan.tflc.misystems.zadatak.web.dto.CarBodyTypeDTO;
 import stefan.tflc.misystems.zadatak.web.mapper.CarBodyTypeMapper;
 
-import lombok.AllArgsConstructor;
-
+@Transactional
 @AllArgsConstructor
 @Service
 public class CarBodyTypeServiceImpl implements CarBodyTypeService {

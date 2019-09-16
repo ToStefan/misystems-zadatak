@@ -2,15 +2,17 @@ package stefan.tflc.misystems.zadatak.service.impl;
 
 import java.util.Set;
 
+import javax.transaction.Transactional;
+
 import org.springframework.stereotype.Service;
 
+import lombok.AllArgsConstructor;
 import stefan.tflc.misystems.zadatak.repository.UserRepository;
 import stefan.tflc.misystems.zadatak.service.UserService;
 import stefan.tflc.misystems.zadatak.web.dto.UserDTO;
 import stefan.tflc.misystems.zadatak.web.mapper.UserMapper;
 
-import lombok.AllArgsConstructor;
-
+@Transactional
 @AllArgsConstructor
 @Service
 public class UserServiceImpl implements UserService {

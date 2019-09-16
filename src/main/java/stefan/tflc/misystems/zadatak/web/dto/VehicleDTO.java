@@ -1,18 +1,12 @@
 package stefan.tflc.misystems.zadatak.web.dto;
 
-import stefan.tflc.misystems.zadatak.entity.Model;
-
-import stefan.tflc.misystems.zadatak.entity.VehicleType;
-
-import stefan.tflc.misystems.zadatak.entity.FuelType;
-
-import stefan.tflc.misystems.zadatak.entity.Price;
-
-import stefan.tflc.misystems.zadatak.entity.CarBodyType;
-
 import lombok.Getter;
-import lombok.Setter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import stefan.tflc.misystems.zadatak.entity.CarBodyType;
+import stefan.tflc.misystems.zadatak.entity.FuelType;
+import stefan.tflc.misystems.zadatak.entity.Model;
+import stefan.tflc.misystems.zadatak.entity.VehicleType;
 
 @Getter
 @Setter
@@ -26,8 +20,7 @@ public class VehicleDTO {
     private Long vehicletypeId;
     private FuelType fuelType;
     private Long fueltypeId;
-    private Price price;
-    private Long priceId;
+    private Integer price;
     private CarBodyType carBodyType;
     private Long carbodytypeId;
     private Integer weight;

@@ -3,7 +3,9 @@ package stefan.tflc.misystems.zadatak.web.mapper;
 import java.util.Collection;
 import java.util.Set;
 import java.util.stream.Collectors;
+
 import org.springframework.stereotype.Component;
+
 import stefan.tflc.misystems.zadatak.entity.Vehicle;
 import stefan.tflc.misystems.zadatak.web.dto.VehicleDTO;
 
@@ -45,8 +47,8 @@ public class VehicleMapper implements Mapper<Vehicle, VehicleDTO> {
         dto.setModelId(entity.getModel().getId());
         dto.setVehicletypeId(entity.getVehicleType().getId());
         dto.setFueltypeId(entity.getFuelType().getId());
-        dto.setPriceId(entity.getPrice().getId());
         dto.setCarbodytypeId(entity.getCarBodyType().getId());
+        dto.setPrice(entity.getPrice());
         dto.setWeight(entity.getWeight());
         dto.setHorsePower(entity.getHorsePower());
         dto.setSeatCount(entity.getSeatCount());
