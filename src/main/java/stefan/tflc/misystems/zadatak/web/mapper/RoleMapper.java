@@ -1,5 +1,8 @@
 package stefan.tflc.misystems.zadatak.web.mapper;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import stefan.tflc.misystems.zadatak.web.dto.PageDTO;
 import java.util.Collection;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -40,6 +43,14 @@ public class RoleMapper implements Mapper<Role, RoleDTO> {
                     .stream()
                     .map(role -> toDTOStripped(role))
                     .collect(Collectors.toSet());
+    }
+
+    @Override
+    public PageDTO<RoleDTO> toPageDTO(Page<Role> pages, Pageable pageable) {
+        return new PageDTO<RoleDTO>(pageable.getPageNumber(), 
+                pageable.getPageSize(), 
+                pages.getTotalElements(), 
+                toDTOStripped(pages.getContent()));
     }
 
     @Override

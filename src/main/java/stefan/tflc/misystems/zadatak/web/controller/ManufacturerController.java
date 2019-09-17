@@ -16,19 +16,28 @@ import org.springframework.web.bind.annotation.RestController;
 import stefan.tflc.misystems.zadatak.service.impl.ManufacturerServiceImpl;
 import stefan.tflc.misystems.zadatak.web.dto.ManufacturerDTO;
 
-import lombok.AllArgsConstructor;
-
-@AllArgsConstructor
+import stefan.tflc.misystems.zadatak.web.dto.PageDTO;
+import org.springframework.data.domain.Pageable;
 @RestController
 @RequestMapping(value = "/api/manufacturer")
 public class ManufacturerController {
 
     private final ManufacturerServiceImpl manufacturerService;
 
+    public ManufacturerController(ManufacturerServiceImpl manufacturerService) {
+    	this.manufacturerService = manufacturerService;
+    }
+
     @GetMapping
     public ResponseEntity<Set<ManufacturerDTO>> findAll() {
          Set<ManufacturerDTO> retVal = manufacturerService.findAll();
          return new ResponseEntity<>(retVal, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/pages")
+    public ResponseEntity<PageDTO<ManufacturerDTO>> findAllByPages(Pageable pageable) {
+        PageDTO<ManufacturerDTO> retVal = manufacturerService.findAll(pageable);
+        return new ResponseEntity<PageDTO<ManufacturerDTO>>(retVal, HttpStatus.OK);
     }
 
     @GetMapping(value = "/{id}")

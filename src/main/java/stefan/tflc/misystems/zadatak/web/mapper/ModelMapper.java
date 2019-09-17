@@ -1,5 +1,8 @@
 package stefan.tflc.misystems.zadatak.web.mapper;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import stefan.tflc.misystems.zadatak.web.dto.PageDTO;
 import java.util.Collection;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -42,6 +45,14 @@ public class ModelMapper implements Mapper<Model, ModelDTO> {
                     .stream()
                     .map(model -> toDTOStripped(model))
                     .collect(Collectors.toSet());
+    }
+
+    @Override
+    public PageDTO<ModelDTO> toPageDTO(Page<Model> pages, Pageable pageable) {
+        return new PageDTO<ModelDTO>(pageable.getPageNumber(), 
+                pageable.getPageSize(), 
+                pages.getTotalElements(), 
+                toDTOStripped(pages.getContent()));
     }
 
     @Override

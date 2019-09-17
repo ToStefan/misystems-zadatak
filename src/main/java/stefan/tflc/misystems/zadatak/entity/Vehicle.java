@@ -1,10 +1,7 @@
 package stefan.tflc.misystems.zadatak.entity;
 
-import lombok.Data;
-
 import javax.persistence.*;
 
-@Data
 @Entity
 @Table(name = "vehicle")
 public class Vehicle {
@@ -28,9 +25,9 @@ public class Vehicle {
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "car_body_type", nullable = false)
     private CarBodyType carBodyType;
-    
+
     @Column(name = "price", nullable = false)
-    private Integer price;
+    private String price;
 
     @Column(name = "weight", nullable = false)
     private Integer weight;
@@ -55,5 +52,121 @@ public class Vehicle {
 
     @Column(name = "trunk_weight", nullable = false)
     private Integer trunkWeight;
+
+    public Vehicle(){
+
+    }
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Model getModel() {
+        return this.model;
+    }
+
+    public void setModel(Model model) {
+        this.model = model;
+    }
+
+    public VehicleType getVehicleType() {
+        return this.vehicleType;
+    }
+
+    public void setVehicleType(VehicleType vehicleType) {
+        this.vehicleType = vehicleType;
+    }
+
+    public FuelType getFuelType() {
+        return this.fuelType;
+    }
+
+    public void setFuelType(FuelType fuelType) {
+        this.fuelType = fuelType;
+    }
+
+    public CarBodyType getCarBodyType() {
+        return this.carBodyType;
+    }
+
+    public void setCarBodyType(CarBodyType carBodyType) {
+        this.carBodyType = carBodyType;
+    }
+
+    public String getPrice() {
+        return this.price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
+    }
+
+    public Integer getWeight() {
+        return this.weight;
+    }
+
+    public void setWeight(Integer weight) {
+        this.weight = weight;
+    }
+
+    public Integer getHorsePower() {
+        return this.horsePower;
+    }
+
+    public void setHorsePower(Integer horsePower) {
+        this.horsePower = horsePower;
+    }
+
+    public Integer getSeatCount() {
+        return this.seatCount;
+    }
+
+    public void setSeatCount(Integer seatCount) {
+        this.seatCount = seatCount;
+    }
+
+    public Integer getDoorCount() {
+        return this.doorCount;
+    }
+
+    public void setDoorCount(Integer doorCount) {
+        this.doorCount = doorCount;
+    }
+
+    public String getDescription() {
+        return this.description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getPropulsion() {
+        return this.propulsion;
+    }
+
+    public void setPropulsion(String propulsion) {
+        this.propulsion = propulsion;
+    }
+
+    public String getTransmission() {
+        return this.transmission;
+    }
+
+    public void setTransmission(String transmission) {
+        this.transmission = transmission;
+    }
+
+    public Integer getTrunkWeight() {
+        return this.trunkWeight;
+    }
+
+    public void setTrunkWeight(Integer trunkWeight) {
+        this.trunkWeight = trunkWeight;
+    }
 
 }

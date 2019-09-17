@@ -1,5 +1,8 @@
 package stefan.tflc.misystems.zadatak.web.mapper;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import stefan.tflc.misystems.zadatak.web.dto.PageDTO;
 import java.util.Collection;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -17,6 +20,7 @@ public class UserMapper implements Mapper<User, UserDTO> {
         dto.setUsername(entity.getUsername());
         dto.setPassword(entity.getPassword());
         dto.setFirstname(entity.getFirstname());
+        dto.setLastname(entity.getLastname());
         dto.setBornDate(entity.getBornDate());
         dto.setActive(entity.getActive());
         dto.setRoles(entity.getRoles());
@@ -38,6 +42,7 @@ public class UserMapper implements Mapper<User, UserDTO> {
         dto.setUsername(entity.getUsername());
         dto.setPassword(entity.getPassword());
         dto.setFirstname(entity.getFirstname());
+        dto.setLastname(entity.getLastname());
         dto.setBornDate(entity.getBornDate());
         dto.setActive(entity.getActive());
         return dto;
@@ -52,11 +57,20 @@ public class UserMapper implements Mapper<User, UserDTO> {
     }
 
     @Override
+    public PageDTO<UserDTO> toPageDTO(Page<User> pages, Pageable pageable) {
+        return new PageDTO<UserDTO>(pageable.getPageNumber(), 
+                pageable.getPageSize(), 
+                pages.getTotalElements(), 
+                toDTOStripped(pages.getContent()));
+    }
+
+    @Override
     public User toEntity(UserDTO dto) {
         User entity = new User();
         entity.setUsername(dto.getUsername());
         entity.setPassword(dto.getPassword());
         entity.setFirstname(dto.getFirstname());
+        entity.setLastname(dto.getLastname());
         entity.setBornDate(dto.getBornDate());
         entity.setActive(dto.getActive());
         entity.setRoles(dto.getRoles());
@@ -70,6 +84,7 @@ public class UserMapper implements Mapper<User, UserDTO> {
         entity.setUsername(dto.getUsername());
         entity.setPassword(dto.getPassword());
         entity.setFirstname(dto.getFirstname());
+        entity.setLastname(dto.getLastname());
         entity.setBornDate(dto.getBornDate());
         entity.setActive(dto.getActive());
         entity.setRoles(dto.getRoles());

@@ -1,5 +1,8 @@
 package stefan.tflc.misystems.zadatak.web.mapper;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import stefan.tflc.misystems.zadatak.web.dto.PageDTO;
 import java.util.Collection;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -15,7 +18,6 @@ public class VehicleTypeMapper implements Mapper<VehicleType, VehicleTypeDTO> {
         VehicleTypeDTO dto = new VehicleTypeDTO();
         dto.setId(entity.getId());
         dto.setName(entity.getName());
-        dto.setCode(entity.getCode());
         return dto;
     }
 
@@ -32,7 +34,6 @@ public class VehicleTypeMapper implements Mapper<VehicleType, VehicleTypeDTO> {
         VehicleTypeDTO dto = new VehicleTypeDTO();
         dto.setId(entity.getId());
         dto.setName(entity.getName());
-        dto.setCode(entity.getCode());
         return dto;
     }
 
@@ -45,10 +46,17 @@ public class VehicleTypeMapper implements Mapper<VehicleType, VehicleTypeDTO> {
     }
 
     @Override
+    public PageDTO<VehicleTypeDTO> toPageDTO(Page<VehicleType> pages, Pageable pageable) {
+        return new PageDTO<VehicleTypeDTO>(pageable.getPageNumber(), 
+                pageable.getPageSize(), 
+                pages.getTotalElements(), 
+                toDTOStripped(pages.getContent()));
+    }
+
+    @Override
     public VehicleType toEntity(VehicleTypeDTO dto) {
         VehicleType entity = new VehicleType();
         entity.setName(dto.getName());
-        entity.setCode(dto.getCode());
         return entity;
     }
 
@@ -57,7 +65,6 @@ public class VehicleTypeMapper implements Mapper<VehicleType, VehicleTypeDTO> {
         VehicleType entity = new VehicleType();
         entity.setId(dto.getId());
         entity.setName(dto.getName());
-        entity.setCode(dto.getCode());
         return entity;
     }
 

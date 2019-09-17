@@ -1,5 +1,8 @@
 package stefan.tflc.misystems.zadatak.web.mapper;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import stefan.tflc.misystems.zadatak.web.dto.PageDTO;
 import java.util.Collection;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -15,7 +18,6 @@ public class FuelTypeMapper implements Mapper<FuelType, FuelTypeDTO> {
         FuelTypeDTO dto = new FuelTypeDTO();
         dto.setId(entity.getId());
         dto.setName(entity.getName());
-        dto.setCode(entity.getCode());
         return dto;
     }
 
@@ -32,7 +34,6 @@ public class FuelTypeMapper implements Mapper<FuelType, FuelTypeDTO> {
         FuelTypeDTO dto = new FuelTypeDTO();
         dto.setId(entity.getId());
         dto.setName(entity.getName());
-        dto.setCode(entity.getCode());
         return dto;
     }
 
@@ -45,10 +46,17 @@ public class FuelTypeMapper implements Mapper<FuelType, FuelTypeDTO> {
     }
 
     @Override
+    public PageDTO<FuelTypeDTO> toPageDTO(Page<FuelType> pages, Pageable pageable) {
+        return new PageDTO<FuelTypeDTO>(pageable.getPageNumber(), 
+                pageable.getPageSize(), 
+                pages.getTotalElements(), 
+                toDTOStripped(pages.getContent()));
+    }
+
+    @Override
     public FuelType toEntity(FuelTypeDTO dto) {
         FuelType entity = new FuelType();
         entity.setName(dto.getName());
-        entity.setCode(dto.getCode());
         return entity;
     }
 
@@ -57,7 +65,6 @@ public class FuelTypeMapper implements Mapper<FuelType, FuelTypeDTO> {
         FuelType entity = new FuelType();
         entity.setId(dto.getId());
         entity.setName(dto.getName());
-        entity.setCode(dto.getCode());
         return entity;
     }
 

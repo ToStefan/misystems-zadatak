@@ -16,19 +16,28 @@ import org.springframework.web.bind.annotation.RestController;
 import stefan.tflc.misystems.zadatak.service.impl.VehicleServiceImpl;
 import stefan.tflc.misystems.zadatak.web.dto.VehicleDTO;
 
-import lombok.AllArgsConstructor;
-
-@AllArgsConstructor
+import stefan.tflc.misystems.zadatak.web.dto.PageDTO;
+import org.springframework.data.domain.Pageable;
 @RestController
 @RequestMapping(value = "/api/vehicle")
 public class VehicleController {
 
     private final VehicleServiceImpl vehicleService;
 
+    public VehicleController(VehicleServiceImpl vehicleService) {
+    	this.vehicleService = vehicleService;
+    }
+
     @GetMapping
     public ResponseEntity<Set<VehicleDTO>> findAll() {
          Set<VehicleDTO> retVal = vehicleService.findAll();
          return new ResponseEntity<>(retVal, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/pages")
+    public ResponseEntity<PageDTO<VehicleDTO>> findAllByPages(Pageable pageable) {
+        PageDTO<VehicleDTO> retVal = vehicleService.findAll(pageable);
+        return new ResponseEntity<PageDTO<VehicleDTO>>(retVal, HttpStatus.OK);
     }
 
     @GetMapping(value = "/{id}")

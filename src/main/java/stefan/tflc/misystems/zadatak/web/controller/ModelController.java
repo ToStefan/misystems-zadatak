@@ -16,19 +16,28 @@ import org.springframework.web.bind.annotation.RestController;
 import stefan.tflc.misystems.zadatak.service.impl.ModelServiceImpl;
 import stefan.tflc.misystems.zadatak.web.dto.ModelDTO;
 
-import lombok.AllArgsConstructor;
-
-@AllArgsConstructor
+import stefan.tflc.misystems.zadatak.web.dto.PageDTO;
+import org.springframework.data.domain.Pageable;
 @RestController
 @RequestMapping(value = "/api/model")
 public class ModelController {
 
     private final ModelServiceImpl modelService;
 
+    public ModelController(ModelServiceImpl modelService) {
+    	this.modelService = modelService;
+    }
+
     @GetMapping
     public ResponseEntity<Set<ModelDTO>> findAll() {
          Set<ModelDTO> retVal = modelService.findAll();
          return new ResponseEntity<>(retVal, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/pages")
+    public ResponseEntity<PageDTO<ModelDTO>> findAllByPages(Pageable pageable) {
+        PageDTO<ModelDTO> retVal = modelService.findAll(pageable);
+        return new ResponseEntity<PageDTO<ModelDTO>>(retVal, HttpStatus.OK);
     }
 
     @GetMapping(value = "/{id}")

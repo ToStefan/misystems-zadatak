@@ -1,30 +1,38 @@
 package stefan.tflc.misystems.zadatak.service.impl;
 
+import stefan.tflc.misystems.zadatak.web.dto.PageDTO;
+import org.springframework.data.domain.Pageable;
 import java.util.Set;
 
-import javax.transaction.Transactional;
-
 import org.springframework.stereotype.Service;
+import javax.transaction.Transactional;
 
 import stefan.tflc.misystems.zadatak.repository.RoleRepository;
 import stefan.tflc.misystems.zadatak.service.RoleService;
 import stefan.tflc.misystems.zadatak.web.dto.RoleDTO;
 import stefan.tflc.misystems.zadatak.web.mapper.RoleMapper;
 
-import lombok.AllArgsConstructor;
-
 @Transactional
-@AllArgsConstructor
 @Service
 public class RoleServiceImpl implements RoleService {
 
     private final RoleRepository roleRepository;
     private final RoleMapper roleMapper;
 
+    public RoleServiceImpl(RoleRepository roleRepository, RoleMapper roleMapper) {
+    	this.roleRepository = roleRepository;
+    	this.roleMapper = roleMapper;
+    }
+
     @Override
     public Set<RoleDTO> findAll() {
         return roleMapper.toDTOStripped(roleRepository.findAll());
     }
+
+    @Override
+    public PageDTO<RoleDTO> findAll(Pageable pageable) {
+        return roleMapper.toPageDTO(roleRepository.findAll(pageable), pageable);
+	}
 
     @Override
     public RoleDTO findById(Long id) {

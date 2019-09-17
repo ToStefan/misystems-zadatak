@@ -1,5 +1,8 @@
 package stefan.tflc.misystems.zadatak.web.mapper;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import stefan.tflc.misystems.zadatak.web.dto.PageDTO;
 import java.util.Collection;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -15,7 +18,6 @@ public class CarBodyTypeMapper implements Mapper<CarBodyType, CarBodyTypeDTO> {
         CarBodyTypeDTO dto = new CarBodyTypeDTO();
         dto.setId(entity.getId());
         dto.setName(entity.getName());
-        dto.setCode(entity.getCode());
         return dto;
     }
 
@@ -32,7 +34,6 @@ public class CarBodyTypeMapper implements Mapper<CarBodyType, CarBodyTypeDTO> {
         CarBodyTypeDTO dto = new CarBodyTypeDTO();
         dto.setId(entity.getId());
         dto.setName(entity.getName());
-        dto.setCode(entity.getCode());
         return dto;
     }
 
@@ -45,10 +46,17 @@ public class CarBodyTypeMapper implements Mapper<CarBodyType, CarBodyTypeDTO> {
     }
 
     @Override
+    public PageDTO<CarBodyTypeDTO> toPageDTO(Page<CarBodyType> pages, Pageable pageable) {
+        return new PageDTO<CarBodyTypeDTO>(pageable.getPageNumber(), 
+                pageable.getPageSize(), 
+                pages.getTotalElements(), 
+                toDTOStripped(pages.getContent()));
+    }
+
+    @Override
     public CarBodyType toEntity(CarBodyTypeDTO dto) {
         CarBodyType entity = new CarBodyType();
         entity.setName(dto.getName());
-        entity.setCode(dto.getCode());
         return entity;
     }
 
@@ -57,7 +65,6 @@ public class CarBodyTypeMapper implements Mapper<CarBodyType, CarBodyTypeDTO> {
         CarBodyType entity = new CarBodyType();
         entity.setId(dto.getId());
         entity.setName(dto.getName());
-        entity.setCode(dto.getCode());
         return entity;
     }
 

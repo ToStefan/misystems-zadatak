@@ -1,10 +1,7 @@
 package stefan.tflc.misystems.zadatak.entity;
 
-import lombok.Data;
-
 import javax.persistence.*;
 
-@Data
 @Entity
 @Table(name = "manufacturer")
 public class Manufacturer {
@@ -15,5 +12,25 @@ public class Manufacturer {
 
     @Column(name = "name", nullable = false)
     private String name;
+
+    public Manufacturer(){
+
+    }
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
 }

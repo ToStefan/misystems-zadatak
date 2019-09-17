@@ -16,19 +16,28 @@ import org.springframework.web.bind.annotation.RestController;
 import stefan.tflc.misystems.zadatak.service.impl.CarBodyTypeServiceImpl;
 import stefan.tflc.misystems.zadatak.web.dto.CarBodyTypeDTO;
 
-import lombok.AllArgsConstructor;
-
-@AllArgsConstructor
+import stefan.tflc.misystems.zadatak.web.dto.PageDTO;
+import org.springframework.data.domain.Pageable;
 @RestController
 @RequestMapping(value = "/api/carbodytype")
 public class CarBodyTypeController {
 
     private final CarBodyTypeServiceImpl carbodytypeService;
 
+    public CarBodyTypeController(CarBodyTypeServiceImpl carbodytypeService) {
+    	this.carbodytypeService = carbodytypeService;
+    }
+
     @GetMapping
     public ResponseEntity<Set<CarBodyTypeDTO>> findAll() {
          Set<CarBodyTypeDTO> retVal = carbodytypeService.findAll();
          return new ResponseEntity<>(retVal, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/pages")
+    public ResponseEntity<PageDTO<CarBodyTypeDTO>> findAllByPages(Pageable pageable) {
+        PageDTO<CarBodyTypeDTO> retVal = carbodytypeService.findAll(pageable);
+        return new ResponseEntity<PageDTO<CarBodyTypeDTO>>(retVal, HttpStatus.OK);
     }
 
     @GetMapping(value = "/{id}")

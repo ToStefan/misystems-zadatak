@@ -16,19 +16,28 @@ import org.springframework.web.bind.annotation.RestController;
 import stefan.tflc.misystems.zadatak.service.impl.RoleServiceImpl;
 import stefan.tflc.misystems.zadatak.web.dto.RoleDTO;
 
-import lombok.AllArgsConstructor;
-
-@AllArgsConstructor
+import stefan.tflc.misystems.zadatak.web.dto.PageDTO;
+import org.springframework.data.domain.Pageable;
 @RestController
 @RequestMapping(value = "/api/role")
 public class RoleController {
 
     private final RoleServiceImpl roleService;
 
+    public RoleController(RoleServiceImpl roleService) {
+    	this.roleService = roleService;
+    }
+
     @GetMapping
     public ResponseEntity<Set<RoleDTO>> findAll() {
          Set<RoleDTO> retVal = roleService.findAll();
          return new ResponseEntity<>(retVal, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/pages")
+    public ResponseEntity<PageDTO<RoleDTO>> findAllByPages(Pageable pageable) {
+        PageDTO<RoleDTO> retVal = roleService.findAll(pageable);
+        return new ResponseEntity<PageDTO<RoleDTO>>(retVal, HttpStatus.OK);
     }
 
     @GetMapping(value = "/{id}")

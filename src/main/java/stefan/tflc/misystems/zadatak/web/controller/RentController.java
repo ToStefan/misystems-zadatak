@@ -16,19 +16,28 @@ import org.springframework.web.bind.annotation.RestController;
 import stefan.tflc.misystems.zadatak.service.impl.RentServiceImpl;
 import stefan.tflc.misystems.zadatak.web.dto.RentDTO;
 
-import lombok.AllArgsConstructor;
-
-@AllArgsConstructor
+import stefan.tflc.misystems.zadatak.web.dto.PageDTO;
+import org.springframework.data.domain.Pageable;
 @RestController
 @RequestMapping(value = "/api/rent")
 public class RentController {
 
     private final RentServiceImpl rentService;
 
+    public RentController(RentServiceImpl rentService) {
+    	this.rentService = rentService;
+    }
+
     @GetMapping
     public ResponseEntity<Set<RentDTO>> findAll() {
          Set<RentDTO> retVal = rentService.findAll();
          return new ResponseEntity<>(retVal, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/pages")
+    public ResponseEntity<PageDTO<RentDTO>> findAllByPages(Pageable pageable) {
+        PageDTO<RentDTO> retVal = rentService.findAll(pageable);
+        return new ResponseEntity<PageDTO<RentDTO>>(retVal, HttpStatus.OK);
     }
 
     @GetMapping(value = "/{id}")

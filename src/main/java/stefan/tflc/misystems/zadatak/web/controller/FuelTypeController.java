@@ -16,19 +16,28 @@ import org.springframework.web.bind.annotation.RestController;
 import stefan.tflc.misystems.zadatak.service.impl.FuelTypeServiceImpl;
 import stefan.tflc.misystems.zadatak.web.dto.FuelTypeDTO;
 
-import lombok.AllArgsConstructor;
-
-@AllArgsConstructor
+import stefan.tflc.misystems.zadatak.web.dto.PageDTO;
+import org.springframework.data.domain.Pageable;
 @RestController
 @RequestMapping(value = "/api/fueltype")
 public class FuelTypeController {
 
     private final FuelTypeServiceImpl fueltypeService;
 
+    public FuelTypeController(FuelTypeServiceImpl fueltypeService) {
+    	this.fueltypeService = fueltypeService;
+    }
+
     @GetMapping
     public ResponseEntity<Set<FuelTypeDTO>> findAll() {
          Set<FuelTypeDTO> retVal = fueltypeService.findAll();
          return new ResponseEntity<>(retVal, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/pages")
+    public ResponseEntity<PageDTO<FuelTypeDTO>> findAllByPages(Pageable pageable) {
+        PageDTO<FuelTypeDTO> retVal = fueltypeService.findAll(pageable);
+        return new ResponseEntity<PageDTO<FuelTypeDTO>>(retVal, HttpStatus.OK);
     }
 
     @GetMapping(value = "/{id}")

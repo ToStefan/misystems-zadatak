@@ -1,30 +1,38 @@
 package stefan.tflc.misystems.zadatak.service.impl;
 
+import stefan.tflc.misystems.zadatak.web.dto.PageDTO;
+import org.springframework.data.domain.Pageable;
 import java.util.Set;
 
-import javax.transaction.Transactional;
-
 import org.springframework.stereotype.Service;
+import javax.transaction.Transactional;
 
 import stefan.tflc.misystems.zadatak.repository.ModelRepository;
 import stefan.tflc.misystems.zadatak.service.ModelService;
 import stefan.tflc.misystems.zadatak.web.dto.ModelDTO;
 import stefan.tflc.misystems.zadatak.web.mapper.ModelMapper;
 
-import lombok.AllArgsConstructor;
-
 @Transactional
-@AllArgsConstructor
 @Service
 public class ModelServiceImpl implements ModelService {
 
     private final ModelRepository modelRepository;
     private final ModelMapper modelMapper;
 
+    public ModelServiceImpl(ModelRepository modelRepository, ModelMapper modelMapper) {
+    	this.modelRepository = modelRepository;
+    	this.modelMapper = modelMapper;
+    }
+
     @Override
     public Set<ModelDTO> findAll() {
         return modelMapper.toDTOStripped(modelRepository.findAll());
     }
+
+    @Override
+    public PageDTO<ModelDTO> findAll(Pageable pageable) {
+        return modelMapper.toPageDTO(modelRepository.findAll(pageable), pageable);
+	}
 
     @Override
     public ModelDTO findById(Long id) {

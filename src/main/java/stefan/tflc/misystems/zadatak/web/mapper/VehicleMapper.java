@@ -1,11 +1,12 @@
 package stefan.tflc.misystems.zadatak.web.mapper;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import stefan.tflc.misystems.zadatak.web.dto.PageDTO;
 import java.util.Collection;
 import java.util.Set;
 import java.util.stream.Collectors;
-
 import org.springframework.stereotype.Component;
-
 import stefan.tflc.misystems.zadatak.entity.Vehicle;
 import stefan.tflc.misystems.zadatak.web.dto.VehicleDTO;
 
@@ -19,8 +20,8 @@ public class VehicleMapper implements Mapper<Vehicle, VehicleDTO> {
         dto.setModel(entity.getModel());
         dto.setVehicleType(entity.getVehicleType());
         dto.setFuelType(entity.getFuelType());
-        dto.setPrice(entity.getPrice());
         dto.setCarBodyType(entity.getCarBodyType());
+        dto.setPrice(entity.getPrice());
         dto.setWeight(entity.getWeight());
         dto.setHorsePower(entity.getHorsePower());
         dto.setSeatCount(entity.getSeatCount());
@@ -45,9 +46,9 @@ public class VehicleMapper implements Mapper<Vehicle, VehicleDTO> {
         VehicleDTO dto = new VehicleDTO();
         dto.setId(entity.getId());
         dto.setModelId(entity.getModel().getId());
-        dto.setVehicletypeId(entity.getVehicleType().getId());
-        dto.setFueltypeId(entity.getFuelType().getId());
-        dto.setCarbodytypeId(entity.getCarBodyType().getId());
+        dto.setVehicleTypeId(entity.getVehicleType().getId());
+        dto.setFuelTypeId(entity.getFuelType().getId());
+        dto.setCarBodyTypeId(entity.getCarBodyType().getId());
         dto.setPrice(entity.getPrice());
         dto.setWeight(entity.getWeight());
         dto.setHorsePower(entity.getHorsePower());
@@ -69,13 +70,21 @@ public class VehicleMapper implements Mapper<Vehicle, VehicleDTO> {
     }
 
     @Override
+    public PageDTO<VehicleDTO> toPageDTO(Page<Vehicle> pages, Pageable pageable) {
+        return new PageDTO<VehicleDTO>(pageable.getPageNumber(), 
+                pageable.getPageSize(), 
+                pages.getTotalElements(), 
+                toDTOStripped(pages.getContent()));
+    }
+
+    @Override
     public Vehicle toEntity(VehicleDTO dto) {
         Vehicle entity = new Vehicle();
         entity.setModel(dto.getModel());
         entity.setVehicleType(dto.getVehicleType());
         entity.setFuelType(dto.getFuelType());
-        entity.setPrice(dto.getPrice());
         entity.setCarBodyType(dto.getCarBodyType());
+        entity.setPrice(dto.getPrice());
         entity.setWeight(dto.getWeight());
         entity.setHorsePower(dto.getHorsePower());
         entity.setSeatCount(dto.getSeatCount());
@@ -94,8 +103,8 @@ public class VehicleMapper implements Mapper<Vehicle, VehicleDTO> {
         entity.setModel(dto.getModel());
         entity.setVehicleType(dto.getVehicleType());
         entity.setFuelType(dto.getFuelType());
-        entity.setPrice(dto.getPrice());
         entity.setCarBodyType(dto.getCarBodyType());
+        entity.setPrice(dto.getPrice());
         entity.setWeight(dto.getWeight());
         entity.setHorsePower(dto.getHorsePower());
         entity.setSeatCount(dto.getSeatCount());

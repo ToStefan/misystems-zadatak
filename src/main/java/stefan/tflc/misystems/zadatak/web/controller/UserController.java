@@ -16,19 +16,28 @@ import org.springframework.web.bind.annotation.RestController;
 import stefan.tflc.misystems.zadatak.service.impl.UserServiceImpl;
 import stefan.tflc.misystems.zadatak.web.dto.UserDTO;
 
-import lombok.AllArgsConstructor;
-
-@AllArgsConstructor
+import stefan.tflc.misystems.zadatak.web.dto.PageDTO;
+import org.springframework.data.domain.Pageable;
 @RestController
 @RequestMapping(value = "/api/user")
 public class UserController {
 
     private final UserServiceImpl userService;
 
+    public UserController(UserServiceImpl userService) {
+    	this.userService = userService;
+    }
+
     @GetMapping
     public ResponseEntity<Set<UserDTO>> findAll() {
          Set<UserDTO> retVal = userService.findAll();
          return new ResponseEntity<>(retVal, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/pages")
+    public ResponseEntity<PageDTO<UserDTO>> findAllByPages(Pageable pageable) {
+        PageDTO<UserDTO> retVal = userService.findAll(pageable);
+        return new ResponseEntity<PageDTO<UserDTO>>(retVal, HttpStatus.OK);
     }
 
     @GetMapping(value = "/{id}")
